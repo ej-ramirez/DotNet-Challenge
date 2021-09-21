@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Sat.Recruitment.Api.Model;
-using Sat.Recruitment.Domain.Entities;
 using Sat.Recruitment.Services.Abstractions;
+using System;
 using System.Threading.Tasks;
 
 namespace Sat.Recruitment.Api.Controllers
@@ -20,16 +21,24 @@ namespace Sat.Recruitment.Api.Controllers
         }
 
         [HttpPost]
-        [Route("/create-user")]
-        public async Task<UserGenerationStatus> CreateUser(UserModel userModel)
+        public async Task<IActionResult> CreateUser(UserModel userModel)
         {
-            var userDto = userModel.ObtenerDTODesdeModel();
+            try
+            {
+                var userDto = userModel.GetDtoFromModel();
 
-            userDto.Money = _transactionServices.GenerateAmountByUserType(userDto);
+                userDto.Money = _transactionServices.GenerateAmountByUserType(userDto);
 
-            userDto.Email = _transactionServices.GetEmail(userDto);
+                userDto.Email = _transactionServices.GetEmail(userDto);
 
-            return _validateServices.ValidateUserGeneration(userDto);
+                var userStatus = _validateServices.ValidateUserGeneration(userDto);              
+
+                return Ok(userStatus);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

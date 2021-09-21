@@ -7,30 +7,30 @@ namespace Sat.Recruitment.Api.Model
     public class UserModel
     {
         [Required]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [Required]
-        public string address { get; set; }
+        public string Address { get; set; }
 
         [Required]
-        public string phone { get; set; }
+        public string Phone { get; set; }
 
-        public UserType userType { get; set; }
+        public UserType UserType { get; set; }
 
-        public decimal money { get; set; }
+        public decimal Money { get; set; }
 
-        public UserDTO ObtenerDTODesdeModel() =>
+        public UserDTO GetDtoFromModel() =>
             new UserDTO
             {
-                Name = name,
-                Email = email,
-                Address = address,
-                Phone = phone,
-                UserType = userType,
-                Money = money,
+                Name = Name,
+                Email = Email,
+                Address = Address,
+                Phone = Phone,
+                UserType = UserType,
+                Money = Money,
             };
     }
 }

@@ -31,6 +31,8 @@ namespace Sat.Recruitment.Services.Implementations
                 {
                     result.IsSuccess = false;
                     result.Errors = "User is duplicated";
+
+                    return result;
                 }
                 else
                 {
