@@ -43,18 +43,6 @@ namespace Sat.Recruitment.Services.Implementations
             }
 
             return userDTO.Money;
-
-            //switch (userDTO.UserType)
-            //{
-            //    case UserType.Normal:
-            //        break;
-            //    case UserType.SuperUser:
-            //        break;
-            //    case UserType.Premium:
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
 
         public string GetEmail(UserDTO userDTO)

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Sat.Recruitment.Domain.Entities
+﻿namespace Sat.Recruitment.Domain.Entities
 {
     public class UserGenerationStatus
     {

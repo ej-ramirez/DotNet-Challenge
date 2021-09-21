@@ -4,7 +4,6 @@ using Sat.Recruitment.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Sat.Recruitment.DataAccess.DAOs.Implementation
 {
@@ -38,6 +37,7 @@ namespace Sat.Recruitment.DataAccess.DAOs.Implementation
 
                 users.Add(user);
             }
+
             reader.Close();
 
             return users;

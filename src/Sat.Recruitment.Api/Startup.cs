@@ -65,16 +65,5 @@ namespace Sat.Recruitment.Api
                 endpoints.MapControllers();
             });
         }
-
-        //private void AddSwagger(IApplicationBuilder app)
-        //{
-        //    app.UseSwagger();
-
-        //    app.UseSwaggerUI(configuracion =>
-        //    {
-        //        configuracion.SwaggerEndpoint("/swagger/v1/swagger.json", "Create Users");
-        //        configuracion.RoutePrefix = string.Empty;
-        //    });
-        //}
     }
 }
