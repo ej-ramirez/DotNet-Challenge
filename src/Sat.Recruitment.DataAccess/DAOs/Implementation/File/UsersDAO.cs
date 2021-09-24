@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Sat.Recruitment.DataAccess.DAOs.Implementation
+namespace Sat.Recruitment.DataAccess.DAOs.Implementation.File
 {
     public class UsersDAO : IUsersDAO
     {
         public UsersDAO() { }
 
-        public IList<UserDTO> GetUsersFile()
+        public IEnumerable<UserDTO> GetUsersFile()
         {
             var users = new List<UserDTO>();
 

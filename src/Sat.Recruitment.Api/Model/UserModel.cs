@@ -6,16 +6,16 @@ namespace Sat.Recruitment.Api.Model
 {
     public class UserModel
     {
-        [Required]
+        [Required(ErrorMessage = "The name is required")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The email is required")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The address is required")]
         public string Address { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The phone is required")]
         public string Phone { get; set; }
 
         public UserType UserType { get; set; }

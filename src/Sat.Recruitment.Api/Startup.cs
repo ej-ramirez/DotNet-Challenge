@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sat.Recruitment.DataAccess.DAOs.Abstractions;
-using Sat.Recruitment.DataAccess.DAOs.Implementation;
+using Sat.Recruitment.DataAccess.DAOs.Implementation.File;
 using Sat.Recruitment.Services.Abstractions;
 using Sat.Recruitment.Services.Implementations;
 

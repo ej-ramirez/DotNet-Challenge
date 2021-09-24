@@ -5,6 +5,6 @@ namespace Sat.Recruitment.DataAccess.DAOs.Abstractions
 {
     public interface IUsersDAO
     {
-        IList<UserDTO> GetUsersFile();
+        IEnumerable<UserDTO> GetUsersFile();
     }
 }

@@ -1,5 +1,4 @@
-﻿using Sat.Recruitment.Domain.DTOs;
-using Sat.Recruitment.Domain.Enums;
+﻿using Sat.Recruitment.Domain.Enums;
 using Sat.Recruitment.Services.Abstractions;
 using System;
 
@@ -9,52 +8,57 @@ namespace Sat.Recruitment.Services.Implementations
     {
         public TransactionServices() { }
 
-        public decimal GenerateAmountByUserType(UserDTO userDTO)
+        public decimal GenerateAmountByUserType(decimal amount, UserType userType)
         {
-            if (userDTO.UserType == UserType.Normal)
+            switch (userType)
             {
-                if (userDTO.Money > 100)
-                {
-                    var percentage = Convert.ToDecimal(0.12);
-                    //If new user is normal and has more than USD100
-                    var gif = userDTO.Money * percentage;
-                    userDTO.Money += gif;
-                }
-
-                if (userDTO.Money < 100 && userDTO.Money > 10)
-                {
-                    var percentage = Convert.ToDecimal(0.8);
-                    var gif = userDTO.Money * percentage;
-                    userDTO.Money += gif;
-                }
+                case UserType.Normal:
+                    amount = CalculateNormalUserAmount(amount);
+                    break;
+                case UserType.SuperUser:
+                    amount = CalculateSuperUserAmount(amount);
+                    break;
+                case UserType.Premium:
+                    amount = CalculatePremiumUserAmount(amount);
+                    break;
+                default:
+                    break;
             }
 
-            if (userDTO.UserType == UserType.SuperUser && userDTO.Money > 100)
-            {
-                var percentage = Convert.ToDecimal(0.20);
-                var gif = userDTO.Money * percentage;
-                userDTO.Money += gif;                
-            }
-
-            if (userDTO.UserType == UserType.Premium && userDTO.Money > 100)
-            {
-                var gif = userDTO.Money * 2;
-                userDTO.Money += gif;
-            }
-
-            return userDTO.Money;
+            return amount;
         }
 
-        public string GetEmail(UserDTO userDTO)
+        private decimal CalculateNormalUserAmount(decimal amount)
         {
-            //Normalize email
-            var aux = userDTO.Email.Split(new char[] { '@' }, StringSplitOptions.RemoveEmptyEntries);
+            decimal higherPercentage = Convert.ToDecimal(0.12);
+            decimal lowerPercentage = Convert.ToDecimal(0.8);           
 
-            var atIndex = aux[0].IndexOf("+", StringComparison.Ordinal);
+            if (amount > 100)            
+                //If new user is normal and has more than USD100
+                amount += amount * higherPercentage;
 
-            aux[0] = atIndex < 0 ? aux[0].Replace(".", "") : aux[0].Replace(".", "").Remove(atIndex);
+            if (amount <= 100 && amount > 10)            
+                amount += amount * lowerPercentage;            
 
-            return userDTO.Email = string.Join("@", new string[] { aux[0], aux[1] });
+            return amount;
+        }
+
+        private decimal CalculateSuperUserAmount(decimal amount)
+        {
+            var percentage = Convert.ToDecimal(0.20);
+
+            if (amount  > 100)
+                amount += amount * percentage;          
+
+            return amount;
+        }
+
+        private decimal CalculatePremiumUserAmount(decimal amount)
+        {
+            if (amount > 100)
+                amount += amount * 2;           
+
+            return amount;
         }
     }
 }

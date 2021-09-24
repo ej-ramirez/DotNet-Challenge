@@ -8,6 +8,7 @@ namespace Sat.Recruitment.Services.Implementations
     public class ValidateServices : IValidateServices
     {
         private readonly IUsersDAO _userDAO;
+
         public ValidateServices(IUsersDAO userDAO)
         {
             _userDAO = userDAO;
@@ -15,33 +16,31 @@ namespace Sat.Recruitment.Services.Implementations
 
         public UserGenerationStatus ValidateUserGeneration(UserDTO userDTO)
         {
-            var result = new UserGenerationStatus();
+            if (ValidateIfUserIsDuplicated(userDTO))
+                return new UserGenerationStatus { IsSuccess = false, Errors = "User is duplicated"};
 
-            var userFile = _userDAO.GetUsersFile();
+            return new UserGenerationStatus { IsSuccess = true, Errors = "User Created"};
+        }
 
-            foreach (var users in userFile)
+        private bool ValidateIfUserIsDuplicated(UserDTO user)
+        {
+            var usersFile = _userDAO.GetUsersFile();
+
+            foreach (var users in usersFile)
             {
-                if (users.Email == userDTO.Email
+                if (users.Email == user.Email
                     ||
-                    users.Phone == userDTO.Phone
+                    users.Phone == user.Phone
                     ||
-                    users.Name == userDTO.Name
+                    users.Name == user.Name
                     ||
-                    users.Address == userDTO.Address)
+                    users.Address == user.Address)
                 {
-                    result.IsSuccess = false;
-                    result.Errors = "User is duplicated";
-
-                    return result;
-                }
-                else
-                {
-                    result.IsSuccess = true;
-                    result.Errors = "User Created";
+                    return true;
                 }
             }
 
-            return result;
+            return false;
         }
     }
 }

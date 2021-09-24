@@ -1,12 +1,9 @@
-﻿using Sat.Recruitment.Domain.DTOs;
+﻿using Sat.Recruitment.Domain.Enums;
 
 namespace Sat.Recruitment.Services.Abstractions
 {
     public interface ITransactionServices
     {
-        decimal GenerateAmountByUserType(UserDTO userDTO);
-
-        string GetEmail(UserDTO userDTO);
-        
+        decimal GenerateAmountByUserType(decimal amount, UserType userType);        
     }
 }

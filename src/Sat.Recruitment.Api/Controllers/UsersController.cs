@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Sat.Recruitment.Api.Extensions;
 using Sat.Recruitment.Api.Model;
 using Sat.Recruitment.Services.Abstractions;
 using System;
@@ -27,9 +28,9 @@ namespace Sat.Recruitment.Api.Controllers
             {
                 var userDto = userModel.GetDtoFromModel();
 
-                userDto.Money = _transactionServices.GenerateAmountByUserType(userDto);
+                userDto.Money = _transactionServices.GenerateAmountByUserType(userDto.Money, userDto.UserType);
 
-                userDto.Email = _transactionServices.GetEmail(userDto);
+                userDto.Email = userModel.Email.ToGetEmail();
 
                 var userStatus = _validateServices.ValidateUserGeneration(userDto);              
 
